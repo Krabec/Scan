@@ -6,7 +6,7 @@ function Main() {
 	  <>
 		<Header/>
 		  <div>
-			hi
+			hiiiii
 		  </div>
 		<Footer/>
 	  </>

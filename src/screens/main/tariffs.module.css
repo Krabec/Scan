@@ -1,0 +1,10 @@
+.tariffs {
+    display: flex;
+    flex-direction: column;
+}
+
+.containerTarifs {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}

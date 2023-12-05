@@ -4,3 +4,25 @@
     border-radius: 10px;
     margin-bottom: 118px;
 }
+
+.headerDiv {
+    display: flex;
+    box-sizing: border-box;
+    border-radius: 10px 10px 0 0;
+    padding: 30px;
+    height: 123px;
+}
+
+.headerDivText {
+    width: 313px;
+}
+
+.headerP {
+    margin: 0;
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 36px;
+    letter-spacing: 0.01em;
+    text-align: left;
+
+}

@@ -21,3 +21,12 @@
     text-align: left;
 
 }
+
+@media screen and (max-width: 1320px) {
+    .sliderComponent {
+        box-sizing: border-box;
+        width: 270px;
+        height: 188px;
+    }
+
+}

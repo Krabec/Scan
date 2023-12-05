@@ -10,12 +10,16 @@ import Security from '../../images/security.svg';
 import Magnifier from '../../images/magnifier.svg';
 
 export default function SimpleSlider() {
+    const screenWidth = window.screen.width
+    let number
+    screenWidth >= 1320 ? number = 3 : number = 1
+
     const settings = {
         dots: false,
         infinite: true,
         speed: 500,
-        slidesToShow: 3,
-        slidesToScroll: 3
+        slidesToShow: number,
+        slidesToScroll: number
         };
     return (
         <div>

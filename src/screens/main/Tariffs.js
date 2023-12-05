@@ -20,7 +20,7 @@ function Tariffs() {
         color: "#000000",
         backgroundColor: "#FFB64F"
       },
-      border: "1px solid #FFB64F"
+      border: "2px solid #FFB64F"
     },
     {
       "name": 'Pro',
@@ -39,7 +39,7 @@ function Tariffs() {
         color: "#000000",
         backgroundColor: "#7CE3E1",
       },
-      border: "1px solid #7CE3E1"
+      border: "2px solid #7CE3E1"
     },
     {
       "name": 'Business',
@@ -58,7 +58,7 @@ function Tariffs() {
         color: "#FFFFFF",
         backgroundColor: "#000000",
       },
-      border: "1px solid #000000"
+      border: "2px solid #000000"
     },
   ]
 	return (

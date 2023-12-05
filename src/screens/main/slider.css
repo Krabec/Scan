@@ -40,3 +40,19 @@
     align-items: center;
     height: 250px;
 }
+
+@media screen and (max-width: 1320px) {
+    .slick-slider {
+        width: 330px !important;
+    }
+    .slick-prev {
+        left: 0;
+        margin-right: 0px;
+    }
+    
+    .slick-next {
+        right: 0;
+        margin-left: -18px;
+    }
+    
+}

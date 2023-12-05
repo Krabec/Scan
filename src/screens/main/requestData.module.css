@@ -53,3 +53,28 @@
     width: 576px;
     height: 533px;
 }
+
+@media screen and (max-width: 1320px) {
+    .requestData {
+        width: 335px;
+        flex-direction: column;
+        margin-top: 20px;
+    }
+	.header {
+		width: 335px;
+        font-size: 28px;
+        font-weight: 900;
+        line-height: 34px;
+        letter-spacing: 0.01em;
+        text-align: left;
+	}
+    .pharagraph {
+        width: 335px;
+        margin-bottom: 32px;
+    }
+    .image {
+        margin-top: 60px;
+        width: 347px;
+        height: 342px;
+    }
+}

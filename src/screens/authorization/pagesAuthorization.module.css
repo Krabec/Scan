@@ -1,3 +1,34 @@
 .main {
     display: flex;
+    margin-top: 69px;
+}
+
+.header {
+    margin: 0;
+    width: 818px;
+    font-size: 40px;
+    font-weight: 900;
+    line-height: 48px;
+    letter-spacing: 0.02em;
+    text-align: left;
+
+}
+
+.containerFooters {
+    position: absolute;
+	left: 0;
+	bottom: 0;
+    width: 100%;
+}
+
+.imgCharacters {
+    margin-top: 180px;
+    margin-left: 112px;
+    position: absolute;
+}
+
+.imgCastle {
+    position: absolute;
+    margin-left: 720px;
+    margin-top: -60px;
 }

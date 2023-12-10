@@ -1,8 +1,13 @@
 import style from './tarif.module.css';
+import { useContext } from 'react';
+import { Context } from '../../index';
+import { observer } from 'mobx-react-lite';
 
 function Tarif( {tarif} ) {
+  const {store} = useContext(Context);
+
 	return (
-	  <div className={style.tarif} style={tarif.currentTarif ? {border: tarif.border} : {border: "none"}}>
+	  <div className={style.tarif} style={(tarif.currentTarif && store.isAuth) ? {border: tarif.border} : {border: "none"}}>
         <div className={style.headerDiv} style={tarif.tarifStyle} >
             <div className={style.headerDivText}>
                 <p className={style.headerP}>{tarif.name}</p>
@@ -11,7 +16,7 @@ function Tarif( {tarif} ) {
             <img src={tarif.img} alt=''></img>
         </div>
         <div className={style.descriptionTextTarif}>
-          <div className={tarif.currentTarif && style.currentTarif} hidden={!tarif.currentTarif}><p>Текущий тариф</p></div>
+          {store.isAuth && <div className={tarif.currentTarif && style.currentTarif} hidden={!tarif.currentTarif}><p>Текущий тариф</p></div>}
           <div className={style.price}>
             <p className={style.priceDiscount}>{tarif.priceDiscount}</p>
             <p className={style.priceNoDiscount}>{tarif.priceNoDiscount}</p>
@@ -23,8 +28,13 @@ function Tarif( {tarif} ) {
               return <li className={style.includedInTariff}>{elem}</li>
             })}
           </ul>
-          <button className={style.buttonTarif + " " + style.buttonCurrent} hidden={!tarif.currentTarif}>Перейти в личный кабинет</button>
-          <button className={style.buttonTarif} hidden={tarif.currentTarif}>Подробнее</button>
+          {store.isAuth ?
+            <>
+              <button className={style.buttonTarif + " " + style.buttonCurrent} hidden={!tarif.currentTarif}>Перейти в личный кабинет</button>
+              <button className={style.buttonTarif} hidden={tarif.currentTarif}>Подробнее</button>
+            </> : 
+            <button className={style.buttonTarif}>Подробнее</button>
+          }
 
         </div>
         
@@ -33,4 +43,4 @@ function Tarif( {tarif} ) {
 	);
   }
 
-  export default Tarif;
+  export default observer(Tarif);

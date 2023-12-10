@@ -5,12 +5,15 @@ import Avatar from './avatar';
 import Limite from './limite';
 import ButtonMenu from './ButtonMenu';
 import { ReactComponent as Logo } from "../../images/logo.svg"
-import { useState } from 'react';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { Context } from '../../index';
+import { observer } from 'mobx-react-lite';
 
 function Header() {
-  const [authorized, setAuthorized] = useState(false);
-
+  const {store} = useContext(Context);
+  //const [authorized, setAuthorized] = useState(store.isAuth ? true : false);
+  
   return (
     <header className={style.header + " container"}>
       <Link to="/"><Logo/></Link>
@@ -18,13 +21,13 @@ function Header() {
         <HeaderNav/>
       </div>
       { 
-          authorized &&
+        store.isAuth &&
           <div className={style.limite}>
-            <Limite/>
+            <Limite companyLimit={store.eventFiltersInfo.companyLimit} usedCompanyCount={store.eventFiltersInfo.usedCompanyCount}/>
           </div>
       }
       <div className="displayNonePhone">
-        {authorized ? <Avatar/> : <Unregistered/>}
+        {store.isAuth ? <Avatar/> : <Unregistered/>}
       </div>
       <div className="displayNoneDesctop">
         <ButtonMenu/>
@@ -34,4 +37,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default observer(Header);

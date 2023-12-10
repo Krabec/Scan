@@ -6,6 +6,7 @@ import Adventages from "./Advantages";
 import selectImg from "../../images/selectImg.png"
 import Tariffs from "./Tariffs";
 
+
 function Main() {
 	return (
 	  <>

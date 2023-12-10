@@ -1,20 +1,24 @@
 import style from "./limite.module.css";
-import { ReactComponent as Load } from "../../images/load.svg"
+import Loader from "../../images/load.svg";
+import { observer } from 'mobx-react-lite';
 
-function Limite() {
+function Limite({companyLimit, usedCompanyCount}) {
+	console.log(companyLimit)
 	return (
 		<div className={style.limites}>
-			{/* <Load/> */}
+		{(companyLimit === undefined) ? 
+			<img src={Loader} alt="" className={style.loader}></img> :
 			<div className={style.limiteContainer}>
 				<div className={style.limite}>
-					<p>Использовано компаний </p><span className={style.span}>34</span>
+					<p>Использовано компаний </p><span className={style.span}>{usedCompanyCount}</span>
 				</div>
 				<div className={style.limite}>
-					<p>Лимит по компаниям </p><span className={style.span + " " + style.colorGreen}>100</span>
+					<p>Лимит по компаниям </p><span className={style.span + " " + style.colorGreen}>{companyLimit}</span>
 				</div>
 			</div>
+		}
 		</div>
 	)
 }
 
-export default Limite;
+export default observer(Limite);

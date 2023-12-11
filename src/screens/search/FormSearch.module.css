@@ -1,8 +1,7 @@
 .formSearch {
+    width: 872px;
     box-sizing: content-box;
-    margin-right: 96px;
     border-radius: 10px;
-    width: 429px;
     padding: 25px;
     padding-bottom: 39px;
     display: flex;
@@ -11,10 +10,44 @@
 }
 
 .input {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     height: 43px;
 
     border-radius: 5px;
     border: 1px solid #C7C7C7;
     box-shadow: 0px 0px 20px 0px #0000000D;
+}
+
+.containerInput {
+    width: 372px;
+    display: flex;
+    flex-direction: column;
+}
+
+.label {
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0.03em;
+    text-align: left;
+
+}
+
+.form {
+    display: flex;
+    justify-content: space-between;
+}
+
+.containerCheckbox {
+    width: 406px;
+}
+
+.labelCheckbox {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0.03em;
+    text-align: left;
+
 }

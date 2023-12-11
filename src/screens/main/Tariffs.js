@@ -3,7 +3,8 @@ import style from './tariffs.module.css';
 
 function Tariffs() {
   const tariffs = [
-    {
+    { 
+      "id": 1,
       "name": 'Beginner',
       "descriptionTarif": "Для небольшого исследования",
       "img": "",
@@ -22,7 +23,8 @@ function Tariffs() {
       },
       border: "2px solid #FFB64F"
     },
-    {
+    { 
+      "id": 2,
       "name": 'Pro',
       "descriptionTarif": "Для HR и фрилансеров",
       "img": "",
@@ -41,7 +43,8 @@ function Tariffs() {
       },
       border: "2px solid #7CE3E1"
     },
-    {
+    { 
+      "id": 3,
       "name": 'Business',
       "descriptionTarif": "Для корпоративных клиентов",
       "img": "",
@@ -64,11 +67,7 @@ function Tariffs() {
 	return (
 	  <section className={style.tariffs}>
         <h2>наши тарифы</h2>
-        <div className={style.containerTarifs}>
-            <Tarif tarif={tariffs[0]}/>
-            <Tarif tarif={tariffs[1]}/>
-            <Tarif tarif={tariffs[2]}/>
-        </div>
+        <Tarif tarifs={tariffs}/>
       </section>
 	);
   }

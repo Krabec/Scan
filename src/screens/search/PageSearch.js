@@ -20,9 +20,9 @@ function PageSearch() {
 
             </div>
 		</main>
-		<div className={style.containerFooters}>
-			<Footer/>
-		</div>
+
+		<Footer/>
+
 		
 	  </>
 	);

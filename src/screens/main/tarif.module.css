@@ -134,6 +134,14 @@
     color: black;
 }
 
+.containerTarifs {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
 @media screen and (max-width: 1320px) {
     .tarif {
         width: 335px;

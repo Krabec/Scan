@@ -3,35 +3,11 @@ import { useState } from 'react';
 
 function FormSearch() {
   const [inn, setInn] = useState();
-  const [password, setPassword] = useState();
-
-
-  /* useEffect(() => {
-    if(erorLogin || erorPassword) {
-      setValidForm(false)
-    } else {
-      setValidForm(true)
-    }
-  }, [erorLogin, erorPassword]) */
 
   const handlerLogin = (e) => {
     setInn(e.target.value)
   }
 
-  const handlerPassword = (e) => {
-    setPassword(e.target.value)
-  }
-
-/*   const handlerBlur = (e) => {
-    switch (e.target.name) {
-      case 'login':
-        setLoginDirty(true)
-        break
-      case 'password':
-        setPasswordDirty(true)
-        break
-    }
-  } */
 
 	return (
 	  <div className={style.formSearch}>
@@ -50,7 +26,7 @@ function FormSearch() {
                 <p className={style.erorLogin}>erorLogin</p>
                 <label className={style.label} for="password">Тональность</label>
                 <input
-                onChange={e => handlerPassword(e)}
+                /* onChange={e => handlerPassword(e)} */
                 /* value={password} */
                 className={style.input + ' ' + style.error} 
                 type="password"
@@ -60,7 +36,6 @@ function FormSearch() {
                 <label className={style.label} for="password">Количество документов в выдаче*</label>
                 <input
                     placeholder='От 1 до 1000'
-                    onChange={e => handlerPassword(e)}
                     /* value={password} */
                     className={style.input + ' ' + style.error} 
                     type="password"
@@ -68,49 +43,64 @@ function FormSearch() {
                     id="password">
                 </input>
                 <p className={style.erorPassword}>erorPassword</p>
+                <label className={style.label} for="password">Диапазон поиска*</label>
+                  <div>
+                      <input
+                          placeholder='Дата начала'
+                          /* value={password} */
+                          className={style.input + ' ' + style.error} 
+                          type="password"
+                          name = "password" 
+                          id="password">
+                      </input>
+                      <input
+                          placeholder='Дата конца'
+
+                          /* value={password} */
+                          className={style.input + ' ' + style.error} 
+                          type="password"
+                          name = "password" 
+                          id="password">
+                      </input>
+                  </div>
             </div>
             <div className={style.containerCheckbox}>
                 <div>
                     <input type="checkbox" id="scales" name="scales" checked />
-                    <label for="scales">Scales</label>
+                    <label for="scales" className={style.labelCheckbox}>Признак максимальной полноты</label>
                 </div>
 
                 <div>
                     <input type="checkbox" id="horns" name="horns" />
-                    <label for="horns">Horns</label>
+                    <label for="horns" className={style.labelCheckbox}>Упоминания в бизнес-контексте</label>
                 </div>
-
+                <div>
+                    <input type="checkbox" id="horns" name="horns" />
+                    <label for="horns" className={style.labelCheckbox}>Главная роль в публикации</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="horns" name="horns" />
+                    <label for="horns" className={style.labelCheckbox}>Публикации только с риск-факторами</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="horns" name="horns" />
+                    <label for="horns" className={style.labelCheckbox}>Включать технические новости рынков</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="horns" name="horns" />
+                    <label for="horns" className={style.labelCheckbox}>Включать анонсы и календари</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="horns" name="horns" />
+                    <label for="horns" className={style.labelCheckbox}>Включать сводки новостей</label>
+                </div>
+                <button 
+                  onClick={(event) => {
+                    event.preventDefault()
+                  }}
+                  className={style.buttonEnter}
+                  disabled>Войти</button>
             </div>
-            <label className={style.label} for="password">Диапазон поиска*</label>
-            <div>
-                <input
-                    placeholder='Дата начала'
-                    onChange={e => handlerPassword(e)}
-                    /* value={password} */
-                    className={style.input + ' ' + style.error} 
-                    type="password"
-                    name = "password" 
-                    id="password">
-                </input>
-                <input
-                    placeholder='Дата конца'
-                    onChange={e => handlerPassword(e)}
-                    /* value={password} */
-                    className={style.input + ' ' + style.error} 
-                    type="password"
-                    name = "password" 
-                    id="password">
-                </input>
-            </div>
-            <p className={style.erorPassword}>erorPassword</p>
-            <button 
-              onClick={(event) => {
-                event.preventDefault()
-              }}
-              className={style.buttonEnter}
-              disabled>Войти</button>
-            <button className={style.buttonRecover}>Восстановить пароль</button>
-            <label className={style.label}>Войти через:</label>
         </form>
       </div>
 	);

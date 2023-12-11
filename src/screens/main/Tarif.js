@@ -3,11 +3,12 @@ import { useContext } from 'react';
 import { Context } from '../../index';
 import { observer } from 'mobx-react-lite';
 
-function Tarif( {tarif} ) {
+function Tarif( {tarifs} ) {
   const {store} = useContext(Context);
 
-	return (
-	  <div className={style.tarif} style={(tarif.currentTarif && store.isAuth) ? {border: tarif.border} : {border: "none"}}>
+  const listItems = tarifs.map((tarif) => {
+    return (
+      <li key={tarif.id} className={style.tarif} style={(tarif.currentTarif && store.isAuth) ? {border: tarif.border} : {border: "none"}}>
         <div className={style.headerDiv} style={tarif.tarifStyle} >
             <div className={style.headerDivText}>
                 <p className={style.headerP}>{tarif.name}</p>
@@ -35,12 +36,14 @@ function Tarif( {tarif} ) {
             </> : 
             <button className={style.buttonTarif}>Подробнее</button>
           }
-
         </div>
-        
+      </li>
+    )
+  }
+    
+    )
 
-      </div>
-	);
+	return (<ul className={style.containerTarifs}>{listItems}</ul>); 
   }
 
   export default observer(Tarif);

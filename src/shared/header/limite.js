@@ -3,7 +3,6 @@ import Loader from "../../images/load.svg";
 import { observer } from 'mobx-react-lite';
 
 function Limite({companyLimit, usedCompanyCount}) {
-	console.log(companyLimit)
 	return (
 		<div className={style.limites}>
 		{(companyLimit === undefined) ? 

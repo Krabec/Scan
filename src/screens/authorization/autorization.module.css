@@ -142,3 +142,16 @@
     box-shadow: 0px 0px 20px 0px rgba(255, 89, 89, 0.2);
 }
 
+@media screen and (max-width: 1320px) {
+	.autorization {
+        box-sizing: border-box;
+        width: 335px;
+    }
+    .buttonHeader {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 17px;
+        letter-spacing: 0.02em;
+
+    }
+}

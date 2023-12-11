@@ -5,6 +5,7 @@ import Main from './screens/main/Main';
 import { Route, Routes } from "react-router-dom";
 import { Context } from './index';
 import { observer } from 'mobx-react-lite';
+import PageSearch from './screens/search/PageSearch'
 
 
 function App() {
@@ -24,6 +25,9 @@ function App() {
 				} />
 				<Route path="/authorization" element={ 
           <PagesAuthorization/> 
+        }/>
+        <Route path="/search" element={ 
+          <PageSearch/> 
         }/>
 			</Routes>	
     </>

@@ -7,8 +7,8 @@ import { Context } from '../../index';
 import { observer } from 'mobx-react-lite';
 
 function Authorization() {
-  const [login, setLogin] = useState();
-  const [password, setPassword] = useState();
+  const [login, setLogin] = useState("");
+  const [password, setPassword] = useState("");
   const [loginDirty, setLoginDirty] = useState(false);
   const [passwordDirty, setPasswordDirty] = useState(false);
   const [erorLogin, setErorLogin] = useState("Введите корректные данные");
@@ -55,6 +55,8 @@ function Authorization() {
       case 'password':
         setPasswordDirty(true)
         break
+      default:
+        console.log(e);
     }
   }
 
@@ -65,7 +67,7 @@ function Authorization() {
             <button className={style.buttonHeader}>Зарегистрироваться</button>
         </div>
         <form className={style.form}>
-            <label className={style.label} for="username">Логин или номер телефона:</label>
+            <label className={style.label} htmlFor="username">Логин или номер телефона:</label>
             <input
               onBlur={(e) => handlerBlur(e)}
               onChange={(e) => handlerLogin(e)}
@@ -76,7 +78,7 @@ function Authorization() {
               id="username">
             </input>
             {(loginDirty && erorLogin) && <p className={style.erorLogin}>{erorLogin}</p>}
-            <label className={style.label} for="password">Пароль:</label>
+            <label className={style.label} htmlFor="password">Пароль:</label>
             <input
               onBlur={(e) => handlerBlur(e)}
               onChange={e => handlerPassword(e)}

@@ -6,6 +6,7 @@ import { Route, Routes } from "react-router-dom";
 import { Context } from './index';
 import { observer } from 'mobx-react-lite';
 import PageSearch from './screens/search/PageSearch'
+import Output from './screens/output/Output';
 
 
 function App() {
@@ -28,6 +29,9 @@ function App() {
         }/>
         <Route path="/search" element={ 
           <PageSearch/> 
+        }/>
+        <Route path="/output" element={ 
+          <Output/> 
         }/>
 			</Routes>	
     </>

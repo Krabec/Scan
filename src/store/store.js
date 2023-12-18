@@ -3,10 +3,12 @@ import AuthService from "../services/AuthService";
 import HistogramsService from "../services/HistogramsService";
 import axios from "axios";
 import { API_URL } from "../http";
+import ObjectSearchService from "../services/ObjectsearchService";
 
 export default class Store {
     isAuth = false;
     eventFiltersInfo = {};
+    histogramsData = {}
 
 
     constructor() {
@@ -16,6 +18,69 @@ export default class Store {
     setAuth(bool) {
         this.isAuth = bool;
     }
+
+    setHistogramsData(dataStart, dataEnd, inn, fullness, limit, inBusinessNews, onlyMainRole, tonality, onlyWithRiskFactors, isTechNews, isAnnouncement, isDigest) { //searchRangeStart, searchRangeEnd, inn, completeness, countDocuments, business, role, tonality, risk, news, announcements, summary
+        console.log(dataStart, dataEnd, inn, fullness, limit, inBusinessNews, onlyMainRole, tonality, onlyWithRiskFactors)
+        this.histogramsData = {
+            "issueDateInterval": {
+                "startDate": dataStart,
+                "endDate": dataEnd
+              },
+              "searchContext": {
+                "targetSearchEntitiesContext": {
+                  "targetSearchEntities": [
+                    {
+                      "type": "company",
+                      "sparkId": null,
+                      "entityId": null,
+                      "inn": inn,
+                      "maxFullness": fullness, //Признак максимальной полноты булевое
+                      "inBusinessNews": inBusinessNews //бизнес контекст наличие или отсутствие буливое или нулл
+                    }
+                  ],
+                  "onlyMainRole": onlyMainRole, //Главная роль в отношении целевых объектов булевое
+                  "tonality": tonality, //тональность negative, positive, any
+                  "onlyWithRiskFactors": onlyWithRiskFactors, //риск булевое
+                  "riskFactors": {
+                    "and": [],
+                    "or": [],
+                    "not": []
+                  },
+                  "themes": {
+                    "and": [],
+                    "or": [],
+                    "not": []
+                  }
+                },
+                "themesFilter": {
+                  "and": [],
+                  "or": [],
+                  "not": []
+                }
+              },
+              "searchArea": {
+                "includedSources": [],
+                "excludedSources": [],
+                "includedSourceGroups": [],
+                "excludedSourceGroups": []
+              },
+              "attributeFilters": {
+                "excludeTechNews": true,
+                "excludeAnnouncements": true,
+                "excludeDigests": true
+              },
+              "similarMode": "duplicates",
+              "limit": Number(limit),
+              "sortType": "sourceInfluence",
+              "sortDirectionType": "desc",
+              "intervalType": "month",
+              "histogramTypes": [
+                "totalDocuments",
+                "riskFactors"
+              ]
+          }
+    }
+
 
     setEventFiltersInfo(eventFiltersInfo) {
         this.eventFiltersInfo = eventFiltersInfo;
@@ -63,11 +128,36 @@ export default class Store {
         }
     }
 
-    async histograms(dataStart, dataEnd, inn, fullness, limit) {
+    async histograms() {
         try {
-            const response = await HistogramsService.histograms(dataStart, dataEnd, inn, fullness, limit);
+            const response = await HistogramsService.histograms(this.histogramsData);
             console.log(response)
             //window.location.assign('/Scan/#/');
+        } catch (e) {
+            console.log(e.response?.data?.message);
+        }
+    }
+
+    async objectSearch() {
+        try {
+            const response = await ObjectSearchService.objectSearch(this.histogramsData);
+            const arrItems = response.data.items
+            let idDocument = {
+                ids: []
+            }
+            console.log(response)
+            arrItems.forEach(element => {
+                idDocument.ids.push(element.encodedId)
+            });
+            console.log(idDocument)
+            const resp = await axios.post("https://gateway.scan-interfax.ru/api/v1/documents", idDocument,
+                {headers: {
+                    'Content-Type': 'application/json',
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                }}
+            )
+
+            console.log(resp)
         } catch (e) {
             console.log(e.response?.data?.message);
         }

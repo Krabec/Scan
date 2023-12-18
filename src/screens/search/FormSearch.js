@@ -3,19 +3,20 @@ import style from './FormSearch.module.css';
 import { useState, useEffect, useContext } from 'react';
 import { Context } from '../../index';
 import { observer } from 'mobx-react-lite';
+import { Link } from "react-router-dom";
 
 function FormSearch() {
 
-    const [inn, setInn] = useState("");
-    const [tonality, setTonality] = useState("");
-    const [countDocuments, setCountDocuments] = useState("");
-    const [searchRangeStart, setSearchRangeStart] = useState("");
-    const [searchRangeEnd, setSearchRangeEnd] = useState("");
+    const [inn, setInn] = useState(""); //использую
+    const [tonality, setTonality] = useState("any"); //использую
+    const [countDocuments, setCountDocuments] = useState(""); //использую
+    const [searchRangeStart, setSearchRangeStart] = useState(""); //использую
+    const [searchRangeEnd, setSearchRangeEnd] = useState(""); //использую
 
-    const [completeness, setCompleteness] = useState(false)
-    const [business, setBusiness] = useState(false)
-    const [role, setRole] = useState(false)
-    const [risk, setRisk] = useState(false)
+    const [completeness, setCompleteness] = useState(false) //использую
+    const [business, setBusiness] = useState(false) //использую
+    const [role, setRole] = useState(false) //использую
+    const [risk, setRisk] = useState(false) //использую
     const [news, setNews] = useState(false)
     const [announcements, setAnnouncements] = useState(false)
     const [summary, setSummary] = useState(false)
@@ -165,8 +166,8 @@ function FormSearch() {
                     name="tonality" 
                     id="tonality">
 
-                    <option value="">Любая</option>
-                    <option value="negitive">Негативная</option>
+                    <option value="any">Любая</option>
+                    <option value="negative">Негативная</option>
                     <option value="positive">Позитивная</option>
                 </select>
                 <label className={style.label} htmlFor="password">Количество документов в выдаче<span className={(countDocumentsDirty && erorCountDocuments) ? style.spanEror : style.span}>*</span></label>
@@ -235,14 +236,16 @@ function FormSearch() {
                     <input onClick={(e) => handlerCheckbox(e)} value={summary} className={style.customCheckbox} type="checkbox" id="summary" name="summary" />
                     <label htmlFor="summary" className={style.labelCheckbox}>Включать сводки новостей</label>
                 </div>
+                <Link to="/output">
+                    <button 
+                    onClick={(event) => {
+                        
+                        store.setHistogramsData(searchRangeStart, searchRangeEnd, inn, completeness, countDocuments, business, role, tonality, risk, news, announcements, summary)
+                    }}
+                    className={style.buttonSearch}
+                    disabled={!validForm}>Поиск</button>
+                </Link>
                 
-                <button 
-                  onClick={(event) => {
-                    event.preventDefault()
-                    store.histograms(searchRangeStart, searchRangeEnd, inn, completeness, countDocuments)
-                  }}
-                  className={style.buttonSearch}
-                  disabled={!validForm}>Поиск</button>
                   <p className={style.hint}>* Обязательные к заполнению поля</p>
             </div>
         </form>

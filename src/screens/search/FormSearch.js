@@ -1,6 +1,8 @@
 import validateInn from '../../services/valideInn';
 import style from './FormSearch.module.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { Context } from '../../index';
+import { observer } from 'mobx-react-lite';
 
 function FormSearch() {
 
@@ -26,6 +28,8 @@ function FormSearch() {
     const [erorCountDocuments, setErorCountDocuments] = useState("Введите корректные данные");
     const [erorSearchRange, setErorSearchRange] = useState("Введите корректные данные");
     const [validForm, setValidForm] = useState(false);
+
+    const {store} = useContext(Context);
 
     useEffect(() => {
         if(erorInn || erorCountDocuments || erorSearchRange) {
@@ -102,18 +106,21 @@ function FormSearch() {
         if(!e.target.value) {
             setErorCountDocuments('Обязательное поле')
         } else if(Number(e.target.value) < 1 || Number(e.target.value) > 1000) {
-            setErorCountDocuments('Введите корректные данные 555')
+            setErorCountDocuments('Введите корректные данные')
         } else {
             setErorCountDocuments('')
         }
     }
 
     const handlerSearchRange = (e) => {
-        console.log(e.target.name)
+        let now = new Date();
         switch (e.target.name) {
             case 'searchRangeStart':
                 setSearchRangeStart(e.target.value)
-                if((searchRangeEnd < e.target.value) || (e.target.value === undefined)) {
+                if(now <= Date.parse(e.target.value)) {
+                    console.log('afdrvafm')
+                    setErorSearchRange('Дата не может быть будущего времени')
+                } else if ((searchRangeEnd < e.target.value) || (e.target.value === undefined)) {
                     setErorSearchRange('Введите корректные данные')
                 } else {
                     setErorSearchRange('')
@@ -123,6 +130,8 @@ function FormSearch() {
                 setSearchRangeEnd(e.target.value)
                 if((searchRangeStart > e.target.value) || (e.target.value === undefined)) {
                     setErorSearchRange('Введите корректные данные')
+                } else if (now <= Date.parse(e.target.value)) {
+                    setErorSearchRange('Дата не может быть будущего времени')
                 } else {
                     setErorSearchRange('')
                 }
@@ -136,17 +145,19 @@ function FormSearch() {
 	  <div className={style.formSearch}>
         <form className={style.form}>
             <div className={style.containerInput}>
-                <label className={style.label} htmlFor="username">ИНН компании<span className={style.spanEror}>*</span></label>
-                <input
-                    placeholder='10 цифр'
-                    onChange={(e) => handlerInn(e)}
-                    onBlur={(e) => handlerBlur(e)}
-                    value={inn}
-                    className={style.input} 
-                    type="number"
-                    name = "inn">
-                </input>
-                {(innDirty && erorInn) && <p className={style.erorPassword}>{erorInn}</p>}
+                <label className={style.label} htmlFor="username">ИНН компании<span className={(innDirty && erorInn) ? style.spanEror : style.span}>*</span></label>
+                <div>
+                    <input
+                        placeholder='10 цифр'
+                        onChange={(e) => handlerInn(e)}
+                        onBlur={(e) => handlerBlur(e)}
+                        value={inn}
+                        className={(innDirty && erorInn) ? style.input + ' ' + style.error : style.input} 
+                        type="number"
+                        name = "inn">
+                    </input>
+                    {(innDirty && erorInn) && <p className={style.erorMassege}>{erorInn}</p>}
+                </div>
                 <label className={style.label} htmlFor="password">Тональность</label>
                 <select value={tonality}
                     onChange={(e) => handlerTonality(e)}
@@ -155,27 +166,29 @@ function FormSearch() {
                     id="tonality">
 
                     <option value="">Любая</option>
-                    <option value="dog">Негативная</option>
-                    <option value="cat">Позитивная</option>
+                    <option value="negitive">Негативная</option>
+                    <option value="positive">Позитивная</option>
                 </select>
-                <label className={style.label} htmlFor="password">Количество документов в выдаче<span className={style.spanEror}>*</span></label>
-                <input
-                    placeholder='От 1 до 1000'
-                    onChange={(e) => handlerCountDocuments(e)}
-                    onBlur={(e) => handlerBlur(e)}
-                    value={countDocuments}
-                    className={style.input + ' ' + style.error} 
-                    type="number"
-                    name = "countDocuments">
-                </input>
-                {(countDocumentsDirty && erorCountDocuments) && <p className={style.erorPassword}>{erorCountDocuments}</p>}
-                <label className={style.label} htmlFor="password">Диапазон поиска<span className={style.spanEror}>*</span></label>
+                <label className={style.label} htmlFor="password">Количество документов в выдаче<span className={(countDocumentsDirty && erorCountDocuments) ? style.spanEror : style.span}>*</span></label>
+                <div>
+                    <input
+                        placeholder='От 1 до 1000'
+                        onChange={(e) => handlerCountDocuments(e)}
+                        onBlur={(e) => handlerBlur(e)}
+                        value={countDocuments}
+                        className={(countDocumentsDirty && erorCountDocuments) ? style.input + ' ' + style.error : style.input} 
+                        type="number"
+                        name = "countDocuments">
+                    </input>
+                    {(countDocumentsDirty && erorCountDocuments) && <p className={style.erorMassege}>{erorCountDocuments}</p>}
+                </div>
+                <label className={style.label} htmlFor="password">Диапазон поиска<span className={((searchRangeEndDirty && searchRangeStartDirty) && erorSearchRange) ? style.spanEror : style.span}>*</span></label>
                   <div className={style.labelDate}>
                     <input 
                         onBlur={(e) => handlerBlur(e)}
                         value={searchRangeStart}
                         onChange={(e) => {handlerSearchRange(e)}}
-                        className={style.input + ' ' + style.inputDate + ' ' + style.inputOpen + ' ' + style.error}  
+                        className={((searchRangeEndDirty || searchRangeStartDirty) && erorSearchRange) ? style.input + ' ' + style.inputDate + ' ' + style.inputOpen + ' ' + style.error : style.input + ' ' + style.inputDate + ' ' + style.inputOpen}  
                         type="date" 
                         name="searchRangeStart" 
                         data-placeholder="Дата начала" 
@@ -184,13 +197,14 @@ function FormSearch() {
                         onBlur={(e) => handlerBlur(e)}
                         value={searchRangeEnd}
                         onChange={(e) => {handlerSearchRange(e)}}
-                        className={style.input + ' ' + style.inputDate + ' ' + style.inputOpen + ' ' + style.error}  
+                        className={((searchRangeEndDirty || searchRangeStartDirty) && erorSearchRange) ? style.input + ' ' + style.inputDate + ' ' + style.inputOpen + ' ' + style.error : style.input + ' ' + style.inputDate + ' ' + style.inputOpen}
                         type="date" 
                         name="searchRangeEnd" 
                         data-placeholder="Дата конца"
                         required aria-required="true" />
+                        {((searchRangeEndDirty || searchRangeStartDirty) && erorSearchRange) && <p className={style.erorMassege + " " + style.erorMassegeDate}>{erorSearchRange}</p>}
                   </div>
-                  {((searchRangeEndDirty && searchRangeStartDirty) && erorSearchRange) && <p className={style.erorPassword}>{erorSearchRange}</p>}
+                  
             </div>
             <div className={style.containerCheckbox}>
                 <div className={style.checkbox}>
@@ -225,6 +239,7 @@ function FormSearch() {
                 <button 
                   onClick={(event) => {
                     event.preventDefault()
+                    store.histograms(searchRangeStart, searchRangeEnd, inn, completeness, countDocuments)
                   }}
                   className={style.buttonSearch}
                   disabled={!validForm}>Поиск</button>
@@ -235,4 +250,4 @@ function FormSearch() {
 	);
   }
 
-  export default FormSearch;
+  export default observer(FormSearch);

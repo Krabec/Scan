@@ -1,5 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import AuthService from "../services/AuthService";
+import HistogramsService from "../services/HistogramsService";
 import axios from "axios";
 import { API_URL } from "../http";
 
@@ -31,7 +32,7 @@ export default class Store {
                 headers: `Authorization: Bearer ${localStorage.getItem('token')}`
             })
             this.setEventFiltersInfo(resp.data.eventFiltersInfo);
-            window.location.assign('http://localhost:3000/');
+            window.location.assign('/Scan/#/');
         } catch (e) {
             console.log(e.response?.data?.message);
         }
@@ -43,7 +44,7 @@ export default class Store {
             localStorage.removeItem('password');
             this.setAuth(false);
             this.setEventFiltersInfo({});
-            window.location.assign('http://localhost:3000/');
+            window.location.assign("/Scan/#/");
     }
 
     async checkAuth() {
@@ -57,6 +58,16 @@ export default class Store {
                 headers: `Authorization: Bearer ${localStorage.getItem('token')}`
             })
             this.setEventFiltersInfo(resp.data.eventFiltersInfo);
+        } catch (e) {
+            console.log(e.response?.data?.message);
+        }
+    }
+
+    async histograms(dataStart, dataEnd, inn, fullness, limit) {
+        try {
+            const response = await HistogramsService.histograms(dataStart, dataEnd, inn, fullness, limit);
+            console.log(response)
+            //window.location.assign('/Scan/#/');
         } catch (e) {
             console.log(e.response?.data?.message);
         }

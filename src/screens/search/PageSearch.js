@@ -2,7 +2,9 @@ import Header from "../../shared/header/header";
 import Footer from "../../shared/footer/footer";
 import style from './PageSearch.module.css';
 import FormSearch from "./FormSearch";
-
+import searchMan from '../../images/SearchMan.svg';
+import document from '../../images/Document.svg';
+import folders from '../../images/Folders.svg';
 
 
 function PageSearch() {
@@ -17,7 +19,11 @@ function PageSearch() {
                 <FormSearch/>
             </div>
 			<div className={style.imagisDiv}>
-
+				<div className={style.imgDoc}>
+					<img className={style.imgDocoment} src={document}></img>
+					<img className={style.imgFolder} src={folders}></img>
+				</div>
+				<img className={style.searchMan} src={searchMan}></img>
             </div>
 		</main>
 

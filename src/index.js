@@ -2,7 +2,7 @@ import React, { createContext } from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import './index.css';
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import Store from './store/store';
 
 const store = new Store();
@@ -17,9 +17,9 @@ root.render(
     <Context.Provider value={{
       store
     }}>
-      <BrowserRouter>
+      <HashRouter>
         <App />
-      </BrowserRouter>
+      </HashRouter>
     </Context.Provider>
   </React.StrictMode>
 ); 

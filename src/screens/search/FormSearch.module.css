@@ -1,6 +1,6 @@
 .formSearch {
     width: 872px;
-    box-sizing: content-box;
+    box-sizing: border-box;
     border-radius: 10px;
     padding: 25px;
     padding-bottom: 39px;
@@ -191,4 +191,29 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .spanEror {
     color: #FF5959;
+}
+
+.erorMassege {
+    margin-left: 19px;
+    margin-top: -25px;
+    position: absolute;
+    color: #FF5959;
+
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0.01em;
+
+}
+
+.erorMassegeDate {
+    width: 372px;
+    text-align: center;
+    margin-top: 48px;
+}
+
+.error {
+    border: 1px solid rgba(255, 89, 89, 1);
+    color: rgba(255, 89, 89, 1);
+    box-shadow: 0px 0px 20px 0px rgba(255, 89, 89, 0.2);
 }

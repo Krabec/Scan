@@ -30,5 +30,21 @@
 
 .main {
     margin-bottom: 64px;
+    display: flex;
+    
 }
 
+.imgDoc {
+    margin-top: 132px;
+}
+
+.imgFolder {
+    margin-left: 166px;
+    margin-top: 18px;
+}
+
+.searchMan {
+    margin-top: 107px;
+    position: absolute;
+    right: 0;
+}

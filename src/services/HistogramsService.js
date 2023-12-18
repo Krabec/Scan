@@ -1,10 +1,9 @@
 import axios from "axios";
-
-const API_URL_HISTOGRAM = "https://gateway.scan-interfax.ru/api/v1/objectsearch/histograms";
+import { API_URL_SEARCH } from "../http/url";
 
 export default class HistogramsService {
     static async histograms(dataStart, dataEnd, inn, fullness, limit) {
-        return await axios.post(`${API_URL_HISTOGRAM}`, 
+        return await axios.post(`${API_URL_SEARCH}/objectsearch/histograms`, 
         
         {
             "issueDateInterval": {
@@ -55,7 +54,7 @@ export default class HistogramsService {
                 "excludeDigests": true
               },
               "similarMode": "duplicates",
-              "limit": limit,
+              "limit": Number(limit),
               "sortType": "sourceInfluence",
               "sortDirectionType": "desc",
               "intervalType": "month",

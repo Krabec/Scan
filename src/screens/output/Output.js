@@ -4,6 +4,9 @@ import Footer from "../../shared/footer/footer";
 import { useEffect, useContext } from 'react';
 import { Context } from '../../index';
 import { observer } from 'mobx-react-lite';
+import HeaderOutput from "./HeaderOutput";
+import GeneralSummary from "./GeneralSummary";
+import ListDocument from "./ListDocument";
 
 
 
@@ -14,7 +17,10 @@ function Output() {
 	return (
 	  <>
 		<Header/>
-		  <main>
+		  <main className="container">
+			<HeaderOutput/>
+			<GeneralSummary/>
+			<ListDocument/>
 		  	<button onClick={(event) =>
 				{
 					event.preventDefault()

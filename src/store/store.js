@@ -145,7 +145,6 @@ export default class Store {
             let idDocument = {
                 ids: []
             }
-            console.log(response)
             arrItems.forEach(element => {
                 idDocument.ids.push(element.encodedId)
             });

@@ -96,4 +96,12 @@
     align-items: end;
 }
 
+.paragraphNumber {
+    color: rgba(148, 148, 148, 1);
+}
 
+
+.headerText {
+    max-height: 65px;
+    overflow: hidden;
+}

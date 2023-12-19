@@ -12,7 +12,12 @@ import ListDocument from "./ListDocument";
 
 
 function Output() {
-	const {store} = useContext(Context);
+	/* const {store} = useContext(Context);
+
+	useEffect(() => {
+		store.histograms(store.histogramsData)
+		store.objectSearch(store.histogramsData)
+	}, []) */
 
 	return (
 	  <>
@@ -21,22 +26,6 @@ function Output() {
 			<HeaderOutput/>
 			<GeneralSummary/>
 			<ListDocument/>
-		  	<button onClick={(event) =>
-				{
-					event.preventDefault()
-                	store.histograms(store.histogramsData)
-				}
-			}
-			>test histograms</button>
-			<button onClick={(event) =>
-				{
-					event.preventDefault()
-
-					store.objectSearch(store.histogramsData)
-				}
-			}
-			>test objectSearch</button>
-
 		  </main>
 		<Footer/>
 	  </>

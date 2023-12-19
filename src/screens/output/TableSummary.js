@@ -1,14 +1,35 @@
 import style from './tableSummary.module.css';
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect} from "react";
 import debounce from "lodash.debounce";
 import ButtonScroll from './ButtonScroll';
 import leftTable from '../../images/leftTable.svg';
 import rightTable from '../../images/rightTable.svg';
-
+import { observer } from 'mobx-react-lite';
+import HistogramsService from '../../services/HistogramsService';
+import dateString from '../../services/dataString';
+import LoaderTable from './LoaderTable';
 
 function TableSummary() {
     const [canScrollLeft, setCanScrollLeft] = useState(false);
     const [canScrollRight, setCanScrollRight] = useState(false);
+    const [dataResponceAll, setDataResponceAll] = useState([]);
+    const [dataResponceRisk, setDataResponceRisk] = useState([]);
+    const [loader, setLoader] = useState(false)
+
+	useEffect(() => {
+        const dates = JSON.parse(localStorage.getItem('histogramsData'));
+        const histogramsRes = async () => {
+            try {
+                const response = await HistogramsService.histograms(dates);
+                setDataResponceAll(response.data.data[0].data)
+                setDataResponceRisk(response.data.data[1].data)
+                setLoader(true)
+            } catch (e) {
+                console.log(e.response?.data?.message);
+            }
+        }
+        histogramsRes();
+	}, [])
 
     const listRef = useRef(null);
 
@@ -47,223 +68,21 @@ function TableSummary() {
                 <p className={style.pharagraphTableHeader}>Риски</p>
             </div>
             <ul className={style.scrollTable} ref={listRef}>
-                <li className={style.tableContent}>
-                    <div className={style.tableDiv}>
-                        <p className={style.pharagraphTable}>10.09.2021</p>
-                        <p className={style.pharagraphTable}>5</p>
-                        <p className={style.pharagraphTable}>0</p>
-                    </div>
-                </li>
-                <li className={style.tableContent}>
-                    <div className={style.tableDiv}>
-                        <p className={style.pharagraphTable}>10.09.2021</p>
-                        <p className={style.pharagraphTable}>5</p>
-                        <p className={style.pharagraphTable}>0</p>
-                    </div>
-                </li>
-                <li className={style.tableContent}>
-                    <div className={style.tableDiv}>
-                        <p className={style.pharagraphTable}>10.09.2021</p>
-                        <p className={style.pharagraphTable}>5</p>
-                        <p className={style.pharagraphTable}>0</p>
-                    </div>
-                </li>
-                <li className={style.tableContent}>
-                    <div className={style.tableDiv}>
-                        <p className={style.pharagraphTable}>10.09.2021</p>
-                        <p className={style.pharagraphTable}>5</p>
-                        <p className={style.pharagraphTable}>0</p>
-                    </div>
-                </li>
-                <li className={style.tableContent}>
-                    <div className={style.tableDiv}>
-                        <p className={style.pharagraphTable}>10.09.2021</p>
-                        <p className={style.pharagraphTable}>5</p>
-                        <p className={style.pharagraphTable}>0</p>
-                    </div>
-                </li>
-                <li className={style.tableContent}>
-                    <div className={style.tableDiv}>
-                        <p className={style.pharagraphTable}>10.09.2021</p>
-                        <p className={style.pharagraphTable}>5</p>
-                        <p className={style.pharagraphTable}>0</p>
-                    </div>
-                </li>
-                <li className={style.tableContent}>
-                    <div className={style.tableDiv}>
-                        <p className={style.pharagraphTable}>15.09.2021</p>
-                        <p className={style.pharagraphTable}>5</p>
-                        <p className={style.pharagraphTable}>0</p>
-                    </div>
-                </li>
-                <li className={style.tableContent}>
-                    <div className={style.tableDiv}>
-                        <p className={style.pharagraphTable}>16.09.2021</p>
-                        <p className={style.pharagraphTable}>5</p>
-                        <p className={style.pharagraphTable}>0</p>
-                    </div>
-                </li>
-                <li className={style.tableContent}>
-                    <div className={style.tableDiv}>
-                        <p className={style.pharagraphTable}>17.09.2021</p>
-                        <p className={style.pharagraphTable}>5</p>
-                        <p className={style.pharagraphTable}>0</p>
-                    </div>
-                </li>
-                <li className={style.tableContent}>
-                    <div className={style.tableDiv}>
-                        <p className={style.pharagraphTable}>18.09.2021</p>
-                        <p className={style.pharagraphTable}>5</p>
-                        <p className={style.pharagraphTable}>0</p>
-                    </div>
-                </li>
-                <li className={style.tableContent}>
-                    <div className={style.tableDiv}>
-                        <p className={style.pharagraphTable}>19.09.2021</p>
-                        <p className={style.pharagraphTable}>5</p>
-                        <p className={style.pharagraphTable}>0</p>
-                    </div>
-                </li>
-                <li className={style.tableContent}>
-                    <div className={style.tableDiv}>
-                        <p className={style.pharagraphTable}>15.09.2021</p>
-                        <p className={style.pharagraphTable}>5</p>
-                        <p className={style.pharagraphTable}>0</p>
-                    </div>
-                </li>
-                <li className={style.tableContent}>
-                    <div className={style.tableDiv}>
-                        <p className={style.pharagraphTable}>16.09.2021</p>
-                        <p className={style.pharagraphTable}>5</p>
-                        <p className={style.pharagraphTable}>0</p>
-                    </div>
-                </li>
-                <li className={style.tableContent}>
-                    <div className={style.tableDiv}>
-                        <p className={style.pharagraphTable}>17.09.2021</p>
-                        <p className={style.pharagraphTable}>5</p>
-                        <p className={style.pharagraphTable}>0</p>
-                    </div>
-                </li>
-                <li className={style.tableContent}>
-                    <div className={style.tableDiv}>
-                        <p className={style.pharagraphTable}>18.09.2021</p>
-                        <p className={style.pharagraphTable}>5</p>
-                        <p className={style.pharagraphTable}>0</p>
-                    </div>
-                </li>
-                <li className={style.tableContent}>
-                    <div className={style.tableDiv}>
-                        <p className={style.pharagraphTable}>19.09.2021</p>
-                        <p className={style.pharagraphTable}>5</p>
-                        <p className={style.pharagraphTable}>0</p>
-                    </div>
-                </li>
-                <li className={style.tableContent}>
-                    <div className={style.tableDiv}>
-                        <p className={style.pharagraphTable}>15.09.2021</p>
-                        <p className={style.pharagraphTable}>5</p>
-                        <p className={style.pharagraphTable}>0</p>
-                    </div>
-                </li>
-                <li className={style.tableContent}>
-                    <div className={style.tableDiv}>
-                        <p className={style.pharagraphTable}>16.09.2021</p>
-                        <p className={style.pharagraphTable}>5</p>
-                        <p className={style.pharagraphTable}>0</p>
-                    </div>
-                </li>
-                <li className={style.tableContent}>
-                    <div className={style.tableDiv}>
-                        <p className={style.pharagraphTable}>17.09.2021</p>
-                        <p className={style.pharagraphTable}>5</p>
-                        <p className={style.pharagraphTable}>0</p>
-                    </div>
-                </li>
-                <li className={style.tableContent}>
-                    <div className={style.tableDiv}>
-                        <p className={style.pharagraphTable}>18.09.2021</p>
-                        <p className={style.pharagraphTable}>5</p>
-                        <p className={style.pharagraphTable}>0</p>
-                    </div>
-                </li>
-                <li className={style.tableContent}>
-                    <div className={style.tableDiv}>
-                        <p className={style.pharagraphTable}>19.09.2021</p>
-                        <p className={style.pharagraphTable}>5</p>
-                        <p className={style.pharagraphTable}>0</p>
-                    </div>
-                </li>
-                <li className={style.tableContent}>
-                    <div className={style.tableDiv}>
-                        <p className={style.pharagraphTable}>15.09.2021</p>
-                        <p className={style.pharagraphTable}>5</p>
-                        <p className={style.pharagraphTable}>0</p>
-                    </div>
-                </li>
-                <li className={style.tableContent}>
-                    <div className={style.tableDiv}>
-                        <p className={style.pharagraphTable}>16.09.2021</p>
-                        <p className={style.pharagraphTable}>5</p>
-                        <p className={style.pharagraphTable}>0</p>
-                    </div>
-                </li>
-                <li className={style.tableContent}>
-                    <div className={style.tableDiv}>
-                        <p className={style.pharagraphTable}>17.09.2021</p>
-                        <p className={style.pharagraphTable}>5</p>
-                        <p className={style.pharagraphTable}>0</p>
-                    </div>
-                </li>
-                <li className={style.tableContent}>
-                    <div className={style.tableDiv}>
-                        <p className={style.pharagraphTable}>18.09.2021</p>
-                        <p className={style.pharagraphTable}>5</p>
-                        <p className={style.pharagraphTable}>0</p>
-                    </div>
-                </li>
-                <li className={style.tableContent}>
-                    <div className={style.tableDiv}>
-                        <p className={style.pharagraphTable}>19.09.2021</p>
-                        <p className={style.pharagraphTable}>5</p>
-                        <p className={style.pharagraphTable}>0</p>
-                    </div>
-                </li>
-                <li className={style.tableContent}>
-                    <div className={style.tableDiv}>
-                        <p className={style.pharagraphTable}>15.09.2021</p>
-                        <p className={style.pharagraphTable}>5</p>
-                        <p className={style.pharagraphTable}>0</p>
-                    </div>
-                </li>
-                <li className={style.tableContent}>
-                    <div className={style.tableDiv}>
-                        <p className={style.pharagraphTable}>16.09.2021</p>
-                        <p className={style.pharagraphTable}>5</p>
-                        <p className={style.pharagraphTable}>0</p>
-                    </div>
-                </li>
-                <li className={style.tableContent}>
-                    <div className={style.tableDiv}>
-                        <p className={style.pharagraphTable}>17.09.2021</p>
-                        <p className={style.pharagraphTable}>5</p>
-                        <p className={style.pharagraphTable}>0</p>
-                    </div>
-                </li>
-                <li className={style.tableContent}>
-                    <div className={style.tableDiv}>
-                        <p className={style.pharagraphTable}>18.09.2021</p>
-                        <p className={style.pharagraphTable}>5</p>
-                        <p className={style.pharagraphTable}>0</p>
-                    </div>
-                </li>
-                <li className={style.tableContent}>
-                    <div className={style.tableDiv}>
-                        <p className={style.pharagraphTable}>19.09.2021</p>
-                        <p className={style.pharagraphTable}>5</p>
-                        <p className={style.pharagraphTable}>0</p>
-                    </div>
-                </li>
+                {
+                    loader ? dataResponceAll.map((elem, id) => {
+                    return (
+                        <li key={id} className={style.tableContent}>
+                            <div className={style.tableDiv}>
+                                <p className={style.pharagraphTable}>{
+                                    dateString(elem.date)
+                                }</p>
+                                <p className={style.pharagraphTable}>{elem.value}</p>
+                                <p className={style.pharagraphTable}>{dataResponceRisk[id].value}</p>
+                            </div>
+                        </li>
+                    )
+                }) : <LoaderTable/>
+                }
             </ul>
         </div>
         <ButtonScroll onClick={() => scrollContainerBy(1021)} disabled={!canScrollRight} images={rightTable}/>
@@ -272,4 +91,4 @@ function TableSummary() {
 	);
   }
 
-  export default TableSummary;
+  export default observer(TableSummary);

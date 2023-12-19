@@ -8,7 +8,9 @@ import ObjectSearchService from "../services/ObjectsearchService";
 export default class Store {
     isAuth = false;
     eventFiltersInfo = {};
-    histogramsData = {}
+    histogramsData = {};
+    generalSummary = [];
+
 
 
     constructor() {
@@ -19,9 +21,12 @@ export default class Store {
         this.isAuth = bool;
     }
 
-    setHistogramsData(dataStart, dataEnd, inn, fullness, limit, inBusinessNews, onlyMainRole, tonality, onlyWithRiskFactors, isTechNews, isAnnouncement, isDigest) { //searchRangeStart, searchRangeEnd, inn, completeness, countDocuments, business, role, tonality, risk, news, announcements, summary
-        console.log(dataStart, dataEnd, inn, fullness, limit, inBusinessNews, onlyMainRole, tonality, onlyWithRiskFactors)
-        this.histogramsData = {
+    setGeneralSummary(data) {
+        this.generalSummary = data
+    }
+
+    setHistogramsData(dataStart, dataEnd, inn, fullness, limit, inBusinessNews, onlyMainRole, tonality, onlyWithRiskFactors) { //searchRangeStart, searchRangeEnd, inn, completeness, countDocuments, business, role, tonality, risk, news, announcements, summary
+        const dataObj = {
             "issueDateInterval": {
                 "startDate": dataStart,
                 "endDate": dataEnd
@@ -79,6 +84,10 @@ export default class Store {
                 "riskFactors"
               ]
           }
+
+          localStorage.setItem('histogramsData', JSON.stringify(dataObj))
+        this.histogramsData = dataObj
+        
     }
 
 
@@ -128,16 +137,6 @@ export default class Store {
         }
     }
 
-    async histograms() {
-        try {
-            const response = await HistogramsService.histograms(this.histogramsData);
-            console.log(response)
-            //window.location.assign('/Scan/#/');
-        } catch (e) {
-            console.log(e.response?.data?.message);
-        }
-    }
-
     async objectSearch() {
         try {
             const response = await ObjectSearchService.objectSearch(this.histogramsData);
@@ -148,7 +147,7 @@ export default class Store {
             arrItems.forEach(element => {
                 idDocument.ids.push(element.encodedId)
             });
-            console.log(idDocument)
+            
             const resp = await axios.post("https://gateway.scan-interfax.ru/api/v1/documents", idDocument,
                 {headers: {
                     'Content-Type': 'application/json',
@@ -156,7 +155,7 @@ export default class Store {
                 }}
             )
 
-            console.log(resp)
+            
         } catch (e) {
             console.log(e.response?.data?.message);
         }
